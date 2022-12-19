@@ -133,10 +133,82 @@ Programs can use various system calls to work with NS/namespaces.
 > nsenter -t 456 -u bash
 ![unshare_nsenter](./screens/unshare_nsenter_command.jpg)
 
- ### persistent namespace
+### Persistent namespace
+* https://breachlabs.io/unshare-linux-persistence-technique
+
+> `unshare -pf --mount-proc /bin/bash`
+
+Running unshare -m gives the calling process a private copy of its mount namespace, and also unshares file system attributes so that it no longer shares its root directory, current directory, or umask attributes with any other process.
+
+### persistent UTS namespace
+creates a new persistent UTS namespace and modifies the hostname
+```
+# touch /root/uts-ns
+# unshare --uts=/root/uts-ns hostname wania
+# nsenter --uts=/root/uts-ns hostname
+wania
+# umount /root/uts-ns
+```
+
+### persistent mount namespace
+```
+# mkdir /root/namespaces
+# mount --bind /root/namespaces /root/namespaces
+# mount --make-private /root/namespaces
+# touch /root/namespaces/mnt
+# unshare --mount=/root/namespaces/mnt
+```
+
+### Private mount points with unshare
+
+> unshare --map-root-user bash
+
+> unshare --uts bash
+
+> /sbin/init
+
+> echo `$!` PID of last job running in background.
+
+> unshare --user &\
+> mount --bind /proc/$!/ns/user /root/user-ns\
+> kill -9 $!
+
+### PID | Process Namespace
+Every time a computer with Linux boots up, it starts with just one process, with process identifier (PID) 1. This process is the root of the process tree, and it initiates the rest of the system by performing the appropriate maintenance work and starting the correct daemons/services. All the other processes start below this process in the tree. The PID namespace allows one to spin off a new tree, with its own PID 1 process. The process that does this remains in the parent namespace, in the original tree, but makes the child the root of its own process tree.
+
+With PID namespace isolation, processes in the child namespace have no way of knowing of the parent process’s existence. However, processes in the parent namespace have a complete view of processes in the child namespace, as if they were any other process in the parent namespace.
 
 
+> findmnt -o+PROPAGATION
 
+## FSTYPE: File System Type:
+* rootfs
+* overlay
+* tmpfs
+* cgroup
+* proc
+* ext4 - Extended File System
+* 9p
+
+## Host machine All NS
+> readlink /proc/1/ns/uts
+
+```bash
+root@mhost:~# readlink /proc/1/ns/*
+cgroup:[4026531835]
+ipc:[4026532271]
+mnt:[4026532282]
+net:[4026531840]
+pid:[4026532284]
+pid:[4026532284]
+user:[4026531837]
+uts:[4026532283]
+```
 
 ## Learning Resource
 * https://lwn.net/Articles/531114/
+* https://www.youtube.com/watch?v=YmbCfeVPHEI
+* [Unsharing the user namespace for rootless containers](https://www.youtube.com/watch?v=YmbCfeVPHEI)
+* https://superuser.com/questions/1729906/how-to-quit-from-linux-namespace
+* [Linux File System Explained](https://www.youtube.com/watch?v=ePN5igV9ZpY)
+* https://unix.stackexchange.com/questions/710809/why-is-the-linux-command-unshare-pid-p-mount-m-not-creating-a-persistent-n
