@@ -1,6 +1,5 @@
 # Linux Namespaces
 A Namespace (ns) wraps some global system resource to provide resource isolation.
-Namespaces are Linux-specific feature
 
 ## Linux support multiple NS types
 * Mount | CLONE_NEWNS | 2002
@@ -12,13 +11,14 @@ Namespaces are Linux-specific feature
 * Cgroup | CLONE_NEWCGROUP | 2016
 * Time (proposed)
 
+## Namespaces are Linux-specific feature
 * For each NS type
     * Multiple instances of NS may exist on a system
         * At system boot, there is one instance of each NS type (initial namespace)
     * Each process resides in one NS instance.
     * To process inside NS instance, it appears that only they can see/modify corresponding global resource.
         * Processes are unaware of other instances of resource.
-
+        
 * When new processes is created via fork(), it resides in same set of NSs as parent.
 
 
