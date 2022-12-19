@@ -18,22 +18,14 @@ A Namespace (ns) wraps some global system resource to provide resource isolation
     * Each process resides in one NS instance.
     * To process inside NS instance, it appears that only they can see/modify corresponding global resource.
         * Processes are unaware of other instances of resource.
-        
+
 * When new processes is created via fork(), it resides in same set of NSs as parent.
 
 
 
+one of the most interesting types of namespaces is `user namespaces` and that's what I'm gonna sort of drill down to it in the second piece because user namespaces sort of bring all the other namespaces together in a way that let us do some quite powerful things things like nprivileged containers for example.
 
-
-
-one of the most interesting types of namespaces is `user namespaces` and that's what I'm gonna sort of drill down to it
-
-in the second piece because user namespaces sort of bring all the other namespaces together in a way that let us
-
-do some quite powerful things things like unprivileged containers for example
-
-How its possible to be super user inside a  container
-
+How its possible to be:
 > super user inside
 > Unprivileged outside
 
