@@ -102,6 +102,11 @@ Programs can use various system calls to work with NS/namespaces.
 * -a = Enter all NSs of target process
 
 
+### Previlege requirements for creating namespaces
+* Creating user NS instances require no privileges.
+* Creating instances of other (nonuser) NS types requires privilege.
+    * CAP_SYS_ADMIN
+
  ### persistent namespace
 
 
