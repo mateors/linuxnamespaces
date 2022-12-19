@@ -77,7 +77,7 @@ Programs can use various system calls to work with NS/namespaces.
 
 ### The unshare and nsenter have flags for specifying each NS type.
 
-> `unshare [options] [commands [args]]`
+> `unshare [options] [command/program [args]]`
 
 * -C = Create new Cgroup NS
 * -i = Create new IPC NS 
@@ -86,6 +86,20 @@ Programs can use various system calls to work with NS/namespaces.
 * -p = Create new PID NS
 * -u = Create new UTS NS
 * -U = Create new user NS
+
+#### nsenter
+
+> `nsenter [options] [command/program [args]]`
+
+* -t PID = PID of process which NSs should be entered
+* -C = Enter cgroup NS of target process
+* -i = Enter IPC NS of target process
+* -m = Enter Mount NS of target process
+* -n = Enter network NS of target process
+* -p = Enter PID NS of target process
+* -u = Enter UTS NS of target process
+* -U = Enter user NS of target process
+* -a = Enter all NSs of target process
 
 
  ### persistent namespace
