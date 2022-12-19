@@ -116,7 +116,7 @@ Programs can use various system calls to work with NS/namespaces.
 > `readlink /proc/$$/ns/uts`\
 > `readlink /proc/$$/ns/pid`
 
-[2_bash_compare](./screens/bash_2_client.jpg)
+![2_bash_compare](./screens/bash_2_client.jpg)
 
 > unshare -u bash
 
