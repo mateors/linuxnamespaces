@@ -52,11 +52,16 @@ An NIS domain is a collection of systems that are logically grouped together. A 
 
 ## Namespaces API & Commands
 
-## /proc/PID/ns
+## ls -la /proc/PID/ns
 Each process has some symlink files in `/proc/PID/ns`
 ![proc/pid/ns](./screens/proc_pid_ns.jpg)
 One symlink for each of the NS types
 
+> tells us which namespace does this process belongs to
+
+### Target of symblink tells us which NS instance process is in.
+> `readlink /proc/290/ns/uts`
+![readlink](./screens/readlink_proc_pid_ns_uts.jpg)
 
 
 ## Learning Resource
