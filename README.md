@@ -107,7 +107,35 @@ Programs can use various system calls to work with NS/namespaces.
 * Creating instances of other (nonuser) NS types requires privilege.
     * CAP_SYS_ADMIN
 
+
+* echo $$ - shows the PID of the shell
+* readlink /proc/$$/ns/uts
+![bash_ns_uts](./screens/bash_pid_uts_ns.jpg)
+
+> `readlink /proc/$$/ns/mnt`\
+> `readlink /proc/$$/ns/uts`\
+> `readlink /proc/$$/ns/pid`
+
+[2_bash_compare](./screens/bash_2_client.jpg)
+
+> unshare -u bash
+
+> sudo unshare -u bash
+
+> hostname wania
+
+> readlink /proc/$$/ns/uts
+
+> readlink /proc/$$/ns/mnt
+
+> readlink /proc/$$/ns/net
+
+> nsenter -t 456 -u bash
+![unshare_nsenter](./screens/unshare_nsenter_command.jpg)
+
  ### persistent namespace
+
+
 
 
 ## Learning Resource
