@@ -212,3 +212,7 @@ uts:[4026532283]
 * https://superuser.com/questions/1729906/how-to-quit-from-linux-namespace
 * [Linux File System Explained](https://www.youtube.com/watch?v=ePN5igV9ZpY)
 * https://unix.stackexchange.com/questions/710809/why-is-the-linux-command-unshare-pid-p-mount-m-not-creating-a-persistent-n
+* [Let's code a Linux Driver - 0: Introduction](https://www.youtube.com/watch?v=x1Y203vH-Dc&list=PLCGpd0Do5-I3b5TtyqeF1UdyD4C-S-dMa)
+* https://www.toptal.com/linux/separation-anxiety-isolating-your-system-with-linux-namespaces
+* [Write your own Operating System](https://www.youtube.com/watch?v=soQCkeBDOAY&list=PLHh55M_Kq4OAIL0fNVfvBt2VuX2cJeXjk)
+* [Let's code a Linux Driver - 0: Introduction](https://www.youtube.com/watch?v=x1Y203vH-Dc&list=PLCGpd0Do5-I3b5TtyqeF1UdyD4C-S-dMa)
