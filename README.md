@@ -21,16 +21,33 @@ A Namespace (ns) wraps some global system resource to provide resource isolation
 
 * When new processes is created via fork(), it resides in same set of NSs as parent.
 
+> One of the most interesting types of namespaces is `user namespaces` and that's what I'm gonna sort of drill down to it in the second piece because user namespaces sort of bring all the other namespaces together in a way that let us do some quite powerful things things like nprivileged containers for example.
 
-
-one of the most interesting types of namespaces is `user namespaces` and that's what I'm gonna sort of drill down to it in the second piece because user namespaces sort of bring all the other namespaces together in a way that let us do some quite powerful things things like nprivileged containers for example.
-
-How its possible to be:
-> super user inside
-> Unprivileged outside
+In a container-style frameworks, most or All  NS types are used in concert.
+### How its possible to be:
+* super user inside
+* Unprivileged outside
 
 ### Unprivileged containers
 
+
+## UTS Namespace
+* Simplest namespace, Isolate two system identifiers returned by uname(2) `man 2 uname`
+    * `nodename` - system hostname (set by sethostname)
+    * `domainname` - NIS domain name / Yellow pages domain
+* Container configuration scripts might tailor their actions based on these IDs.
+    * `nodename` could be used with DHCP to obtain IP address for container.
+* Running system may have multiple UTS NS instances.
+* Process within single instance(UTS NS instance) access (get/set) same nodename and domainname.
+* Each NS instance has its own nodename and domainname
+    * Changes to nodename and domainname in one NS instance are invisible  to others instances.
+
+### NIS domain name
+An NIS domain is a collection of systems that are logically grouped together. A group of hosts that share the same set of NIS maps belong to the same domain. The hosts are usually grouped together in the domain for a common reason; for example, when working in the same group at a particular location. NIS focuses on making network administration more manageable by providing centralized control over a variety of network information.
+
+### uname(2) `man 2 uname`
+* uname - get name and information about current kernel
+* Part of the utsname information is also accessible via `/proc/sys/kernel/{ostype, hostname, osrelease, version, domainname}`.
 
 ## Learning Resource
 * https://lwn.net/Articles/531114/
