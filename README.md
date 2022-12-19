@@ -205,6 +205,10 @@ user:[4026531837]
 uts:[4026532283]
 ```
 
+> Building containers by hand: The PID namespace
+* https://www.redhat.com/sysadmin/pid-namespace
+
+
 ## Learning Resource
 * https://lwn.net/Articles/531114/
 * https://www.youtube.com/watch?v=YmbCfeVPHEI
