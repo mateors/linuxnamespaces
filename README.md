@@ -63,6 +63,33 @@ One symlink for each of the NS types
 > `readlink /proc/290/ns/uts`
 ![readlink](./screens/readlink_proc_pid_ns_uts.jpg)
 
+> Format of the above output: `ns_type : [magic_inode_number]` = uts:[4026532283]
+ * magic_inode_number =  unique inode number correponding to this namespace.
+
+### Various uses for the  /proc/PID/ns symlinks
+ * If processes show same  symlink target, they are in the same NS.
+
+### APIs and commands
+Programs can use various system calls to work with NS/namespaces.
+* clone: create new child process in the new NS(s).
+* unshare: create  new NS(s) and move caller into it.
+* setns: move calling process another existing NS(s) instance.
+
+### The unshare and nsenter have flags for specifying each NS type.
+
+> `unshare [options] [commands [args]]`
+
+* -C = Create new Cgroup NS
+* -i = Create new IPC NS 
+* -m = Create new Mount NS
+* -n = Create new Network NS
+* -p = Create new PID NS
+* -u = Create new UTS NS
+* -U = Create new user NS
+
+
+ ### persistent namespace
+
 
 ## Learning Resource
 * https://lwn.net/Articles/531114/
