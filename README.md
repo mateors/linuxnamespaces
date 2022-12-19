@@ -49,5 +49,15 @@ An NIS domain is a collection of systems that are logically grouped together. A 
 * uname - get name and information about current kernel
 * Part of the utsname information is also accessible via `/proc/sys/kernel/{ostype, hostname, osrelease, version, domainname}`.
 
+
+## Namespaces API & Commands
+
+## /proc/PID/ns
+Each process has some symlink files in `/proc/PID/ns`
+![proc/pid/ns](./screens/proc_pid_ns.jpg)
+One symlink for each of the NS types
+
+
+
 ## Learning Resource
 * https://lwn.net/Articles/531114/
