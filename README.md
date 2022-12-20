@@ -208,8 +208,11 @@ uts:[4026532283]
 > Building containers by hand: The PID namespace
 * https://www.redhat.com/sysadmin/pid-namespace
 
-####  mount_namespaces
+#### The mount namespace | man 7 mount_namespaces
 * https://manpages.ubuntu.com/manpages/impish/man7/mount_namespaces.7.html
+* https://lwn.net/Articles/689856/
+* https://www.redhat.com/sysadmin/mount-namespaces
+
 
 
 ## Learning Resource
