@@ -247,6 +247,13 @@ I use an Alpine Linux tarball.
 
 > capsh --help
 
+> cat /proc/$$/task/$$/status | grep Cap
+
+### Capability sets manipulated by
+* Starting service - systemd
+* Starting container - dockerd...
+* Loading programs - execve() system call
+
 ## Learning Resource
 * https://lwn.net/Articles/531114/
 * https://www.youtube.com/watch?v=YmbCfeVPHEI
