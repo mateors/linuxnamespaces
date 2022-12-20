@@ -249,10 +249,42 @@ I use an Alpine Linux tarball.
 
 > cat /proc/$$/task/$$/status | grep Cap
 
+> cat /proc/self/status
+
 ### Capability sets manipulated by
 * Starting service - systemd
 * Starting container - dockerd...
 * Loading programs - execve() system call
+
+### What are Capabilities?
+Linux capabilities have been around in the kernel for some time. The idea is to break up the monolithic root privilege that Linux systems have had, so that smaller more specific privileges can be provided where they’re required. This helps reduce the risk that by compromising a single process on a host an attacker is able to fully compromise it.
+
+### Practical use of capabilities
+So how do we actually manipulate capabilities on a Linux system? The most basic way of handing this (without writing custom code) is to use the getcap and setcap binaries which come with the libcap2-bin package on debian derived systems.
+
+If you use getcap on a file which has capabilities, you’ll see something like this
+
+>  `getcap /usr/bin/ping`
+```
+/usr/bin/ping cap_net_raw=ep
+```
+> capsh --decode=0000003fffffffff
+```
+0x0000003fffffffff=cap_chown,cap_dac_override,cap_dac_read_search,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_linux_immutable,cap_net_bind_service,cap_net_broadcast,cap_net_admin,cap_net_raw,cap_ipc_lock,cap_ipc_owner,cap_sys_module,cap_sys_rawio,cap_sys_chroot,cap_sys_ptrace,cap_sys_pacct,cap_sys_admin,cap_sys_boot,cap_sys_nice,cap_sys_resource,cap_sys_time,cap_sys_tty_config,cap_mknod,cap_lease,cap_audit_write,cap_audit_control,cap_setfcap,cap_mac_override,cap_mac_admin,cap_syslog,cap_wake_alarm,cap_block_suspend,cap_audit_read
+```
+
+> `capsh --decode=00000000a80425fb` | see what Docker provides by default
+```
+0x00000000a80425fb=cap_chown,cap_dac_override,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_net_raw,cap_sys_chroot,cap_mknod,cap_audit_write,cap_setfcap
+```
+
+### Capability Gotcha's
+There are some gotcha's to be aware of when using capabilities. First up is that, to use file capabilities, the filesystem you’re running from needs have extended attribute (xattr) support. A notable exception here is some versions of aufs that ship with some versions Debian and Ubuntu. This can impact Docker installs, as they’ll use aufs by default.
+
+Another one is that where you’re manipulating files you need to make sure that the tools you’re using understand capabilities. For example when backing up files with tar, you need to use the following switches to make it all work.
+
+* [Practical use of Linux capabilities](https://www.youtube.com/watch?v=WYC6DHzWzFQ)
+> https://raesene.github.io/blog/2017/08/27/Linux-capabilities-and-when-to-drop-all/
 
 ## Learning Resource
 * https://lwn.net/Articles/531114/
