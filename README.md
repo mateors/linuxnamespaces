@@ -208,12 +208,44 @@ uts:[4026532283]
 > Building containers by hand: The PID namespace
 * https://www.redhat.com/sysadmin/pid-namespace
 
-#### The mount namespace | man 7 mount_namespaces
+## The mount namespace | man 7 mount_namespaces
 * https://manpages.ubuntu.com/manpages/impish/man7/mount_namespaces.7.html
 * https://lwn.net/Articles/689856/
 * https://www.redhat.com/sysadmin/mount-namespaces
 
+By default, if you were to create a new mount namespace with unshare -m, your view of the system would remain largely unchanged and unconfined. That's because whenever you create a new mount namespace, a copy of the mount points from the parent namespace is created in the new mount namespace. That means that any action taken on files inside a poorly configured mount namespace will impact the host.
 
+### Some setup steps for mount namespaces
+
+Abusing access to mount namespaces through `/proc/pid/root`
+
+One special feature of the mount namespace is that they can be accessed through the /proc/PID/root/ and /proc/PID/cwd/ folders. These folders allow processes in a parent mount namespace and PID namespace to temporarily view files in the mount namespace of another process. This access is a bit magical and has some restrictions – for example, setuid executables will not work and device files are still usable even when /proc is mounted with the ‘nodev’ option.
+
+> By default, a Docker container has the following capabilities:
+```
+cap_chown,cap_dac_override,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,
+cap_net_bind_service,cap_net_raw,cap_sys_chroot,cap_mknod,cap_audit_write,cap_setfcap+eip
+```
+Most of these capabilities are hard to abuse, for example, the cap_kill allows root in the container to kill all processes it can see, which is limited by the PID namespace, effectively only allowing processes within the container to be killed.
+
+However, as the container has the cap_mknod, a root user within the container is allowed to create block device files. Device files are special files that are used to access underlying hardware & kernel modules. For example, the /dev/sda block device file gives access to read the raw data on the systems disk.
+
+Docker ensures that block devices cannot be abused from within the container by setting a cgroup policy on the container that blocks read and write of block devices.
+
+> However, if a block device is created within the container it can be accessed through the `/proc/PID/root/` folder by someone outside the container, the limitation being that the process must be owned by the same user outside and inside the container.
+
+To show that the user develop now has full access to the filesystem we grab the root password hash from the /etc/shadow file.
+
+This attack is easily prevented by following best practices by ensuring that nobody is root within the container and by running Docker with the parameter '–cap-drop=MKNOD'.
+
+
+> ls -la /proc/485/root
+
+I use an Alpine Linux tarball.
+
+> wget https://dl-cdn.alpinelinux.org/alpine/v3.13/releases/x86_64/alpine-minirootfs-3.13.1-x86_64.tar.gz
+
+> capsh --help
 
 ## Learning Resource
 * https://lwn.net/Articles/531114/
