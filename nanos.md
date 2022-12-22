@@ -160,9 +160,10 @@ Virtualized: true
 
 > ops image tree g
 
-
- https://www.youtube.com/watch?v=OBlJ3QuEt9k
-
-https://www.youtube.com/watch?v=DYpaX4BnNlg
-
-https://www.youtube.com/watch?v=UrHOw35uBrE&t=10s
+## Learning Resource
+* https://www.youtube.com/watch?v=OBlJ3QuEt9k
+* https://www.youtube.com/watch?v=DYpaX4BnNlg
+* https://www.youtube.com/watch?v=UrHOw35uBrE&t=10s
+* https://raw.githubusercontent.com/nanovms/ops/master/install.sh
+* https://www.youtube.com/playlist?list=PLZij6bgEHkTXRakAtponkmP2CmlTTKlxl
+* https://www.youtube.com/playlist?list=PLZij6bgEHkTXRakAtponkmP2CmlTTKlxl
