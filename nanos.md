@@ -129,15 +129,13 @@ Virtualized: true
 
 
 
-$Env:GOOS="linux"; go build
+> $Env:GOOS="linux"; go build
 
-$Env:GOOS="linux"; go build main.go
+> $Env:GOOS="linux"; go build main.go
 
+> ops run main
 
-ops run main
-
-ops image list
-
+> ops image list
 
 > ops image ls <image_name> <path> [flags]
 
@@ -146,41 +144,24 @@ ops image list
 > ops image tree main
 
 
+> ops image cp <image_name> <src>... <dest> [flags]
+
+> ops image cp main lib /mnt/e/PRACTICE/nanos -r
+
+> ops image cp main . /mnt/e/PRACTICE/nanos -r
+
+> ops run -p 8080 g
+
+> ls -lh ~/.oph/images
+
+> file ~/.ops/images/main
+
+> ops image list -t gcp -g prod-1033 -z us-west2-a
+
+> ops image tree g
 
 
-
-
-ops image cp <image_name> <src>... <dest> [flags]
-
-ops image cp main lib /mnt/e/PRACTICE/nanos -r
-
-ops image cp main . /mnt/e/PRACTICE/nanos -r
-
-https://raw.githubusercontent.com/nanovms/ops/master/install.sh
-
-https://www.youtube.com/playlist?list=PLZij6bgEHkTXRakAtponkmP2CmlTTKlxl
-
-
-https://www.youtube.com/playlist?list=PLZij6bgEHkTXRakAtponkmP2CmlTTKlxl
-
-
-ops run -p 8080 g
-
-
-
-ls -lh ~/.oph/images
-
-
- file ~/.ops/images/main
-
-
-
-ops image list -t gcp -g prod-1033 -z us-west2-a
-
-
-ops image tree g
-
-https://www.youtube.com/watch?v=OBlJ3QuEt9k
+ https://www.youtube.com/watch?v=OBlJ3QuEt9k
 
 https://www.youtube.com/watch?v=DYpaX4BnNlg
 
