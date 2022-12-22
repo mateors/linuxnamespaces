@@ -69,65 +69,62 @@ $FindDate=Get-Date -Year 2022 -Month 12 -Day 22
 Get-ChildItem -Path C:\ -Include .ops -File -Recurse -ErrorAction SilentlyContinue | Where-Object { $_.LastWriteTime -ge $FindDate 
 Get-Childitem -Path C:\Users\ACER\AppData\Local\Packages -Include .ops? -Recurse
 
+```
 Ops version: 0.1.34
 Nanos version: 0.0
+```
  
-ops image list
+> ops image list
 
-ops instance list
+> ops instance list
 
-ops commands
+> ops commands
 
-build
-completion
-deploy - Build an image from ELF and deploy an instance
-env - Cross-build environment commands
-help
-image - manage nanos images
-instance - manage nanos instances
-pkg - Package related commands
-profile -  Profile
-run - Run ELF binary as unikernel
-update -  check for updates
-version - manage nanos volumes
-volume - 
+* build
+* completion
+* deploy - Build an image from ELF and deploy an instance
+* env - Cross-build environment commands
+* help
+* image - manage nanos images
+* instance - manage nanos instances
+* pkg - Package related commands
+* profile -  Profile
+* run - Run ELF binary as unikernel
+* update -  check for updates
+* version - manage nanos volumes
+* volume - 
 
-ops help volume
+> ops help volume
 
-ops volume list
+> ops volume list
 
-ops completion bash
+> ops completion bash
 
+> ops pkg list
 
-
-
-ops pkg list
-
-
-> ops profile -j
-
+> ops profile
+```
 Ops version: 0.1.34
 Nanos version: 0.0
 Qemu version: 6.2.0
 Arch: linux
 Virtualized: true
-
-
+```
 
 > ops update
+
  100% |████████████████████████████████████████|  [4s:0s]
  100% |████████████████████████████████████████|  [0s:0s]
 Update nanos to 0.1.43 version.
 
 > ops profile
-
+```
 Ops version: 0.1.34
 Nanos version: 0.1.43
 Qemu version: 6.2.0
 Arch: linux
 Virtualized: true
-
-
+```
 
 > $Env:GOOS="linux"; go build
 
@@ -142,7 +139,6 @@ Virtualized: true
 > ops image ls main
 
 > ops image tree main
-
 
 > ops image cp <image_name> <src>... <dest> [flags]
 
