@@ -264,6 +264,52 @@ So how do we actually manipulate capabilities on a Linux system? The most basic 
 
 If you use getcap on a file which has capabilities, you’ll see something like this
 
+ #### Capabilities list
+> `man capabilities | grep -E '^\s{7}CAP_'`
+
+> cat /proc/sys/kernel/cap_last_cap
+```
+40
+```
+
+* Thread capability sets
+* File capabilities
+* Capabilities and execution of programs by root
+* Set-user-ID-root programs that have file capabilities
+* Capability bounding set
+* Programmatically adjusting capability sets
+* Per-user-namespace "set-user-ID-root" programs
+* Namespaced file capabilities | `man 7 user_namespaces`
+
+
+ > sudo strace -o trace.log -u ceci ./myprivprog
+
+ The  /proc/[pid]/task/TID/status  file  can  be  used to view the capability sets of a thread.  The /proc/[pid]/status file shows the capability sets of a process's main thread.
+
+ SEE ALSO
+       capsh(1), setpriv(1), prctl(2), setfsuid(2), cap_clear(3), cap_copy_ext(3), cap_from_text(3), cap_get_file(3), cap_get_proc(3), cap_init(3), capgetp(3),  capsetp(3),  libcap(3),  proc(5),  creden‐
+       tials(7), pthreads(7), user_namespaces(7), captest(8), filecap(8), getcap(8), getpcaps(8), netcap(8), pscap(8), setcap(8)
+
+
+       *  The  goal  of  capabilities  is divide the power of superuser into pieces, such that if a program that has one or more capabilities is compromised, its power to do damage to the system would be
+          less than the same program running with root privilege.
+
+* Namespaced file capabilities
+
+   Programmatically adjusting capability sets
+       A thread can retrieve and change its permitted, effective, and inheritable capability sets using the capget(2) and capset(2) system calls.  However, the use of cap_get_proc(3) and cap_set_proc(3),
+       both provided in the libcap package, is preferred for this purpose.  The following rules govern changes to the thread capability sets:
+
+
+       
+       Capability bounding set prior to Linux 2.6.25
+
+       In kernels before 2.6.25, the capability bounding set is a system-wide attribute that affects all threads on the system.  The bounding set is accessible via  the  file  /proc/sys/kernel/cap-bound.
+       (Confusingly, this bit mask parameter is expressed as a signed decimal number in /proc/sys/kernel/cap-bound.)
+
+       Only the init process may set capabilities in the capability bounding set; other than that, the superuser (more precisely: a process with the CAP_SYS_MODULE capability) may only clear capabilities
+       from this set.
+
 >  `getcap /usr/bin/ping`
 ```
 /usr/bin/ping cap_net_raw=ep
@@ -277,6 +323,14 @@ If you use getcap on a file which has capabilities, you’ll see something like 
 ```
 0x00000000a80425fb=cap_chown,cap_dac_override,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_net_raw,cap_sys_chroot,cap_mknod,cap_audit_write,cap_setfcap
 ```
+> getcap /bin/ping
+```/bin/ping cap_net_raw=ep```
+
+> setcap cap_sys_nice=pe /bin/notnice 
+
+> nice -n -11 sleep 10
+
+> strace ping localhost
 
 ### Capability Gotcha's
 There are some gotcha's to be aware of when using capabilities. First up is that, to use file capabilities, the filesystem you’re running from needs have extended attribute (xattr) support. A notable exception here is some versions of aufs that ship with some versions Debian and Ubuntu. This can impact Docker installs, as they’ll use aufs by default.
